@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: mydeployment
+    labels:
+        app: api
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: api
+    template:
+        metadata:
+            labels:
+                app: api
+        spec:
+            containers:
+                - name: mydeployment
+                  image: ns4451docker/cmlhw5inf
+                  ports:
+                      - containerPort: 5000
+                  volumeMounts:
+                  - name: myvolume
+                    mountPath: /trainedmnist
+            volumes:
+              - name: myvolume
+                persistentVolumeClaim:
+                  claimName: my-pvc
+---
+  
+apiVersion: v1
+kind: Service
+metadata:
+    name: myservice
+spec:
+    type: LoadBalancer
+    selector:
+        app: api
+    ports:
+        - protocol: TCP
+          port: 5000
+          targetPort: 5000

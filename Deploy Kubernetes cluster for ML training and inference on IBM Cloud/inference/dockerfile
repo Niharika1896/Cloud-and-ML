@@ -1,0 +1,10 @@
+FROM pytorch/pytorch:latest
+RUN pip install flask
+
+COPY infer.py .
+
+CMD python3 infer.py
+
+USER root
+
+

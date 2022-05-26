@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: trainingjob
+spec:
+  template:
+    spec:
+      containers:
+      - name: trainingjob
+        image: ns4451docker/cmlhw5
+        command: ["python3", "main.py"]
+        volumeMounts:
+        - name: myvolume
+          mountPath: /trainedmnist
+      restartPolicy: Never
+      volumes:
+        - name: myvolume
+          persistentVolumeClaim:
+            claimName: my-pvc
+            
+            
+            

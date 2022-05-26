@@ -1,0 +1,10 @@
+FROM pytorch/pytorch:latest
+
+MAINTAINER Niharika Sinha "ns4451@nyu.edu"
+
+RUN mkdir /home/user
+USER root
+
+COPY main.py .
+
+CMD python3 main.py
